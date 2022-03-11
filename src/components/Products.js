@@ -4,7 +4,6 @@ import PropTypes from 'prop-types';
 class Products extends Component {
   render() {
     const { searchResult } = this.props;
-    console.log(searchResult);
     return (
       searchResult === []
         ? (<p>Nenhum produto foi encontrado</p>)

@@ -23,7 +23,6 @@ class ProductCategoryList extends Component {
     const { searchInput } = this.state;
     const searchAPI = await getProductsFromQuery(searchInput);
     this.setState({ searchResult: searchAPI.results });
-    console.log(searchAPI.results);
   }
 
   handleChange = ({ target }) => {
