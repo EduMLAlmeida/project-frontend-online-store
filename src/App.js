@@ -1,11 +1,12 @@
 import React from 'react';
 import './App.css';
-import Home from './pages/Home';
+import Content from './components/Content';
 
-function App() {
-  return (
-    <Home />
-  );
+class App extends React.Component {
+  render() {
+    return (
+      <Content />
+    );
+  }
 }
-
 export default App;
