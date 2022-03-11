@@ -28,10 +28,11 @@ class ProductCategoryList extends Component {
             } = currCategory;
             return (
               <div key={ id }>
-                <label htmlFor="radio" data-testid="category">
+                <label htmlFor="category" data-testid="category">
                   <input
                     type="radio"
                     id="radio"
+                    name="category"
                     value={ name }
                   />
                   { name }
