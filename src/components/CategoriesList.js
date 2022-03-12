@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 
 class CategoriesList extends Component {
   render() {
-    const { categories } = this.props;
+    const { categories, handleClickCategory } = this.props;
     return (
       <div>
         {
@@ -17,9 +17,10 @@ class CategoriesList extends Component {
                 <label htmlFor="category" data-testid="category">
                   <input
                     type="radio"
-                    id="radio"
+                    id={ id }
                     name="category"
-                    value={ id }
+                    value={ name }
+                    onClick={ handleClickCategory }
                   />
                   { name }
                 </label>
@@ -34,6 +35,7 @@ class CategoriesList extends Component {
 
 CategoriesList.propTypes = {
   categories: PropTypes.arrayOf(PropTypes.any).isRequired,
+  handleClickCategory: PropTypes.func.isRequired,
 };
 
 export default CategoriesList;

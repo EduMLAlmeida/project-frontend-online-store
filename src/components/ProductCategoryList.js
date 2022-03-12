@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
-import { getCategories, getProductsFromQuery } from '../services/api';
+import { getCategories,
+  getProductsFromQuery, getProductsFromCategoryAndQuery } from '../services/api';
 import CategoriesList from './CategoriesList';
 import Products from './Products';
 
@@ -11,6 +12,8 @@ class ProductCategoryList extends Component {
       categories: [],
       searchInput: '',
       searchResult: [],
+      checkingCategory: false,
+      currentCategory: '',
     };
   }
 
@@ -20,9 +23,19 @@ class ProductCategoryList extends Component {
   }
 
   onClick = async () => {
-    const { searchInput } = this.state;
-    const searchAPI = await getProductsFromQuery(searchInput);
-    this.setState({ searchResult: searchAPI.results });
+    const { checkingCategory, searchInput, currentCategory } = this.state;
+
+    if (!checkingCategory) {
+      const searchAPI = await getProductsFromQuery(searchInput);
+      this.setState({ searchResult: searchAPI.results });
+    } else if (checkingCategory) {
+      const searchWithCategory = await getProductsFromCategoryAndQuery(
+        currentCategory,
+        searchInput,
+      );
+      console.log(searchWithCategory);
+      this.setState({ searchResult: searchWithCategory.results });
+    }
   }
 
   handleChange = ({ target }) => {
@@ -34,11 +47,19 @@ class ProductCategoryList extends Component {
     this.setState({ [name]: value });
   }
 
+  handleClickCategory = ({ target }) => {
+    this.setState({
+      currentCategory: target.id,
+      checkingCategory: true,
+    });
+  };
+
   render() {
     const {
       categories,
       searchInput,
       searchResult,
+
     } = this.state;
     return (
       <>
@@ -64,7 +85,10 @@ class ProductCategoryList extends Component {
           <p>Produtos</p>
         </div>
         <div>
-          <CategoriesList categories={ categories } />
+          <CategoriesList
+            categories={ categories }
+            handleClickCategory={ this.handleClickCategory }
+          />
           <Products searchResult={ searchResult } />
         </div>
       </>
