@@ -1,3 +1,4 @@
+import PropTypes from 'prop-types';
 import React from 'react';
 import { getDetails } from '../services/api';
 
@@ -8,20 +9,24 @@ class ProductDetails extends React.Component {
     this.state = {
       title: '',
       thumbnail: '',
-      details: [],
       attributes: [],
     };
   }
 
   async componentDidMount() {
-    const result = await getDetails();
+    const { match } = this.props;
+    const { params } = match;
+    const result = await getDetails(params.id);
     this.setState(() => ({
-      details: result,
+      title: result.title,
+      price: result.price,
+      thumbnail: result.thumbnail,
+      attributes: [...result.attributes],
     }));
   }
 
   render() {
-    const { result } = this.state;
+    const { title, thumbnail, price, attributes } = this.state;
     return (
       <div>
         <h2 data-testid="product-detail-name"> </h2>
@@ -31,5 +36,12 @@ class ProductDetails extends React.Component {
     );
   }
 }
+ProductDetails.propTypes = ({
+  match: PropTypes.shape({
+    params: PropTypes.shape({
+      id: PropTypes.string,
+    }),
+  }),
+}).isRequired;
 
 export default ProductDetails;

@@ -6,7 +6,7 @@ class Details extends React.Component {
   render() {
     return (
       <>
-        <Link to="./ProductDetails" component={ }data-testeid="product-detail-link" />
+        <Link to="./ProductDetails" data-testeid="product-detail-link" />
         <div data-testid="product" />
       </>
     );
@@ -16,7 +16,6 @@ ProductDetails.propTypes = ({
   title: PropTypes.string,
   thumbnail: PropTypes.string,
   price: PropTypes.number,
- }).isRequired
+}).isRequired;
 
 export default Details;
-
