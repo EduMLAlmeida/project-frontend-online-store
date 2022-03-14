@@ -2,6 +2,13 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 
 class Products extends Component {
+  addToCart = (target) => {
+    console.log('adicionei ao Cart');
+    { id, title } = target;
+    // Adicione o atributo data-testid com o valor shopping-cart-product-name no elemento que possui o nome do produto na tela do carrinho de compras. Você deve adicionar esse atributo para todos os produtos.
+    // Adicione o atributo data-testid com o valor shopping-cart-product-quantity no elemento que possui a quantidade do produto na tela do carrinho de compras. Você deve adicionar esse atributo para todos os produtos.
+  };
+
   render() {
     const { searchResult } = this.props;
     return (
@@ -20,11 +27,19 @@ class Products extends Component {
                     thumbnail,
                   } = currProduct;
                   return (
+
                     <div key={ id }>
                       <span data-testid="product" />
                       <p>{title}</p>
                       <img src={ thumbnail } alt={ title } />
                       <p>{price}</p>
+                      <button
+                        type="button"
+                        data-testid="product-add-to-cart"
+                        onClick={ this.addToCart }
+                      >
+                        Adicionar ao Carrinho
+                      </button>
                     </div>
                   );
                 }))
