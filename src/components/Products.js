@@ -5,13 +5,10 @@ import { Link } from 'react-router-dom';
 class Products extends Component {
   addToCart = (cartProduct) => {
     const { cartItems } = this.props;
-    console.log(cartProduct);
-    cartItems.push(cartProduct);
-    console.log(cartItems);
-
-    // const { id, title } = target;
-    // Adicione o atributo data-testid com o valor shopping-cart-product-name no elemento que possui o nome do produto na tela do carrinho de compras. Você deve adicionar esse atributo para todos os produtos.
-    // Adicione o atributo data-testid com o valor shopping-cart-product-quantity no elemento que possui a quantidade do produto na tela do carrinho de compras. Você deve adicionar esse atributo para todos os produtos.
+    const cartString = JSON.stringify(cartItems);
+    if (!cartString.includes(cartProduct.id)) {
+      cartItems.push(cartProduct);
+    }
   };
 
   render() {
@@ -23,7 +20,7 @@ class Products extends Component {
           <div>
             {
               (searchResult
-                .filter((_, index) => index > 0)
+                // .filter((_, index) => index > 0)
                 .map((currProduct) => {
                   const {
                     id,
