@@ -23,15 +23,13 @@ class Products extends Component {
                   return (
                     <div key={ id }>
                       <span data-testid="product" />
-                      <p>{title}</p>
-                      <img src={ thumbnail } alt={ title } />
-                      <p>{price}</p>
                       <Link
                         to={ `./productDetails/${id}` }
                         data-testeid="product-detail-link"
                       >
-                        {' '}
-                        Ver Detalhes
+                        <p>{title}</p>
+                        <img src={ thumbnail } alt={ title } />
+                        <p>{price}</p>
 
                       </Link>
                     </div>

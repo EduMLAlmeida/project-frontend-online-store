@@ -1,5 +1,5 @@
-import React, { Component } from 'react';
 import PropTypes from 'prop-types';
+import React, { Component } from 'react';
 
 class CategoriesList extends Component {
   render() {
@@ -14,10 +14,10 @@ class CategoriesList extends Component {
             } = currCategory;
             return (
               <div key={ id }>
-                <label htmlFor="category" data-testid="category">
+                <label htmlFor={ id } data-testid="category">
                   <input
                     type="radio"
-                    id="radio"
+                    id={ id }
                     name="category"
                     value={ id }
                   />
