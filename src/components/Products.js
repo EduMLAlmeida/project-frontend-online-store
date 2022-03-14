@@ -25,7 +25,7 @@ class Products extends Component {
                       <span data-testid="product" />
                       <Link
                         to={ `./productDetails/${id}` }
-                        data-testeid="product-detail-link"
+                        data-testid="product-detail-link"
                       >
                         <p>{title}</p>
                         <img src={ thumbnail } alt={ title } />

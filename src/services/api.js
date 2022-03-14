@@ -33,6 +33,10 @@ export async function getDetails(query) {
     const fetchAPI = await fetch(`https://api.mercadolibre.com/items/${query}`);
     const details = await fetchAPI.json();
     return details;
+  } catch (error) {
+    console.log(error);
+  }
+}
 
 export async function getProductsFromCategoryAndQuery(categoryId, query) {
   try {

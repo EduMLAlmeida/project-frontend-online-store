@@ -31,8 +31,7 @@ class ProductDetails extends React.Component {
     console.log(attributes);
     return (
       <>
-        <p>Teste</p>
-        <h2 data-testid="product-detail-name"> </h2>
+        <p data-testid="product-detail-name">{ title }</p>
         <img src={ thumbnail } alt={ title } />
         <p>{ price }</p>
         <p>

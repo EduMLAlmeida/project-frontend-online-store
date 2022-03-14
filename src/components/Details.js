@@ -7,7 +7,7 @@ class Details extends React.Component {
       <>
         <Link
           to={ `/productDetails/${id}` }
-          data-testeid="product-detail-link"
+          data-testid="product-detail-link"
         >
           {' '}
           Ver Detalhes
