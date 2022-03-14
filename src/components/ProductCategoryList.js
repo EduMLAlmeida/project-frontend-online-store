@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { getCategories,
-  getProductsFromQuery, getProductsFromCategoryAndQuery } from '../services/api';
+  getProductsFromCategory, getProductsFromCategoryAndQuery } from '../services/api';
 import CategoriesList from './CategoriesList';
 import Products from './Products';
 
@@ -12,30 +12,28 @@ class ProductCategoryList extends Component {
       categories: [],
       searchInput: '',
       searchResult: [],
-      checkingCategory: false,
       currentCategory: '',
     };
   }
 
   async componentDidMount() {
     const result = await getCategories();
-    this.setState(() => ({ categories: result }));
+    this.setState({ categories: result });
   }
 
-  onClick = async () => {
-    const { checkingCategory, searchInput, currentCategory } = this.state;
+  onClick = () => {
+    const { searchInput, currentCategory } = this.state;
 
-    if (!checkingCategory) {
-      const searchAPI = await getProductsFromQuery(searchInput);
-      this.setState({ searchResult: searchAPI.results });
-    } else if (checkingCategory) {
+    this.setState({
+      searchResult: [],
+    }, async () => {
       const searchWithCategory = await getProductsFromCategoryAndQuery(
         currentCategory,
         searchInput,
       );
-      console.log(searchWithCategory);
+
       this.setState({ searchResult: searchWithCategory.results });
-    }
+    });
   }
 
   handleChange = ({ target }) => {
@@ -50,9 +48,19 @@ class ProductCategoryList extends Component {
   handleClickCategory = ({ target }) => {
     this.setState({
       currentCategory: target.id,
-      checkingCategory: true,
+      searchResult: [],
     });
-  };
+
+    this.setState({
+      currentCategory: target.id,
+      searchResult: [],
+    }, async () => {
+      const searchFromCategory = await getProductsFromCategory(target.id);
+      this.setState({
+        searchResult: searchFromCategory.results,
+      });
+    });
+  }
 
   render() {
     const {

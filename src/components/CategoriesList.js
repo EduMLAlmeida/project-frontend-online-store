@@ -14,7 +14,7 @@ class CategoriesList extends Component {
             } = currCategory;
             return (
               <div key={ id }>
-                <label htmlFor="category" data-testid="category">
+                <label htmlFor={ id } data-testid="category">
                   <input
                     type="radio"
                     id={ id }
