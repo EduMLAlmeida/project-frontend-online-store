@@ -3,9 +3,13 @@ import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
 
 class Products extends Component {
-  addToCart = (target) => {
-    console.log('adicionei ao Cart');
-    { id, title } = target;
+  addToCart = (cartProduct) => {
+    const { cartItems } = this.props;
+    console.log(cartProduct);
+    cartItems.push(cartProduct);
+    console.log(cartItems);
+
+    // const { id, title } = target;
     // Adicione o atributo data-testid com o valor shopping-cart-product-name no elemento que possui o nome do produto na tela do carrinho de compras. Você deve adicionar esse atributo para todos os produtos.
     // Adicione o atributo data-testid com o valor shopping-cart-product-quantity no elemento que possui a quantidade do produto na tela do carrinho de compras. Você deve adicionar esse atributo para todos os produtos.
   };
@@ -38,14 +42,14 @@ class Products extends Component {
                         <p>{title}</p>
                         <img src={ thumbnail } alt={ title } />
                         <p>{price}</p>
-                        <button
+                      </Link>
+                      <button
                         type="button"
                         data-testid="product-add-to-cart"
-                        onClick={ this.addToCart }
+                        onClick={ () => { this.addToCart(currProduct); } }
                       >
                         Adicionar ao Carrinho
                       </button>
-                      </Link>
                     </div>
                   );
                 }))

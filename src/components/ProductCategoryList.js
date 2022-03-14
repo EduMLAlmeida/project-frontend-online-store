@@ -67,8 +67,10 @@ class ProductCategoryList extends Component {
       categories,
       searchInput,
       searchResult,
-
     } = this.state;
+    const {
+      cartItems,
+    } = this.props;
     return (
       <>
         <div>
@@ -97,7 +99,7 @@ class ProductCategoryList extends Component {
             categories={ categories }
             handleClickCategory={ this.handleClickCategory }
           />
-          <Products searchResult={ searchResult } />
+          <Products searchResult={ searchResult } cartItems={ cartItems } />
         </div>
       </>
     );
