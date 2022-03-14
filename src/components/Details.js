@@ -1,4 +1,3 @@
-import PropTypes from 'prop-types';
 import React from 'react';
 import { Link } from 'react-router-dom';
 
@@ -6,16 +5,22 @@ class Details extends React.Component {
   render() {
     return (
       <>
-        <Link to="./ProductDetails" data-testeid="product-detail-link" />
-        <div data-testid="product" />
+        <Link
+          to={ `/productDetails/${id}` }
+          data-testeid="product-detail-link"
+        >
+          {' '}
+          Ver Detalhes
+
+        </Link>
+        <div data-testid="product">
+          {' '}
+          <p> TESTE </p>
+          {' '}
+        </div>
       </>
     );
   }
 }
-ProductDetails.propTypes = ({
-  title: PropTypes.string,
-  thumbnail: PropTypes.string,
-  price: PropTypes.number,
-}).isRequired;
 
 export default Details;

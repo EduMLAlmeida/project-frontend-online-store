@@ -10,13 +10,14 @@ class ProductDetails extends React.Component {
       title: '',
       thumbnail: '',
       attributes: [],
+      price: 0,
     };
   }
 
   async componentDidMount() {
-    const { match } = this.props;
-    const { params } = match;
-    const result = await getDetails(params.id);
+    const { match: { params: { id } } } = this.props;
+    const result = await getDetails(id);
+    console.log(result);
     this.setState(() => ({
       title: result.title,
       price: result.price,
@@ -27,12 +28,19 @@ class ProductDetails extends React.Component {
 
   render() {
     const { title, thumbnail, price, attributes } = this.state;
+    console.log(attributes);
     return (
-      <div>
+      <>
+        <p>Teste</p>
         <h2 data-testid="product-detail-name"> </h2>
-        <img src={ result.thumbnail } alt={ result.title } />
-        <p>{ result.price }</p>
-      </div>
+        <img src={ thumbnail } alt={ title } />
+        <p>{ price }</p>
+        <p>
+          {' '}
+          { attributes[attributes] }
+        </p>
+      </>
+
     );
   }
 }

@@ -30,7 +30,7 @@ export async function getProductsFromQuery(query) {
 
 export async function getDetails(query) {
   try {
-    const fetchAPI = await fetch(`https://api.mercadolibre.com/items/$PRODUCT_ID${query}`);
+    const fetchAPI = await fetch(`https://api.mercadolibre.com/items/${query}`);
     const details = await fetchAPI.json();
     return details;
   } catch (error) {
