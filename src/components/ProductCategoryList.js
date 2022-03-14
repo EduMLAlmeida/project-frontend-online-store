@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
-import { getCategories, getProductsFromQuery } from '../services/api';
+import { getCategories,
+  getProductsFromCategory, getProductsFromCategoryAndQuery } from '../services/api';
 import CategoriesList from './CategoriesList';
 import Products from './Products';
 
@@ -11,18 +12,28 @@ class ProductCategoryList extends Component {
       categories: [],
       searchInput: '',
       searchResult: [],
+      currentCategory: '',
     };
   }
 
   async componentDidMount() {
     const result = await getCategories();
-    this.setState(() => ({ categories: result }));
+    this.setState({ categories: result });
   }
 
-  onClick = async () => {
-    const { searchInput } = this.state;
-    const searchAPI = await getProductsFromQuery(searchInput);
-    this.setState({ searchResult: searchAPI.results });
+  onClick = () => {
+    const { searchInput, currentCategory } = this.state;
+
+    this.setState({
+      searchResult: [],
+    }, async () => {
+      const searchWithCategory = await getProductsFromCategoryAndQuery(
+        currentCategory,
+        searchInput,
+      );
+
+      this.setState({ searchResult: searchWithCategory.results });
+    });
   }
 
   handleChange = ({ target }) => {
@@ -34,11 +45,29 @@ class ProductCategoryList extends Component {
     this.setState({ [name]: value });
   }
 
+  handleClickCategory = ({ target }) => {
+    this.setState({
+      currentCategory: target.id,
+      searchResult: [],
+    });
+
+    this.setState({
+      currentCategory: target.id,
+      searchResult: [],
+    }, async () => {
+      const searchFromCategory = await getProductsFromCategory(target.id);
+      this.setState({
+        searchResult: searchFromCategory.results,
+      });
+    });
+  }
+
   render() {
     const {
       categories,
       searchInput,
       searchResult,
+
     } = this.state;
     return (
       <>
@@ -64,7 +93,10 @@ class ProductCategoryList extends Component {
           <p>Produtos</p>
         </div>
         <div>
-          <CategoriesList categories={ categories } />
+          <CategoriesList
+            categories={ categories }
+            handleClickCategory={ this.handleClickCategory }
+          />
           <Products searchResult={ searchResult } />
         </div>
       </>
