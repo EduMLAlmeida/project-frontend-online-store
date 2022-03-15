@@ -1,6 +1,7 @@
 import PropTypes from 'prop-types';
 import React from 'react';
 import { getDetails } from '../services/api';
+import RatingSystem from '../components/RatingSystem';
 
 class ProductDetails extends React.Component {
   constructor() {
@@ -36,8 +37,10 @@ class ProductDetails extends React.Component {
           {' '}
           { attributes[attributes] }
         </p>
+        <div>
+          <RatingSystem />
+        </div>
       </>
-
     );
   }
 }
