@@ -1,6 +1,7 @@
 import PropTypes from 'prop-types';
 import React from 'react';
 import { getDetails } from '../services/api';
+import RatingSystem from './RatingSystem';
 
 class ProductDetails extends React.Component {
   constructor() {
@@ -28,7 +29,7 @@ class ProductDetails extends React.Component {
 
   render() {
     const { title, thumbnail, price, attributes } = this.state;
-    console.log(attributes);
+
     return (
       <>
         <p data-testid="product-detail-name">{ title }</p>
@@ -38,8 +39,10 @@ class ProductDetails extends React.Component {
           {' '}
           { attributes[attributes] }
         </p>
+        <div>
+          <RatingSystem />
+        </div>
       </>
-
     );
   }
 }
