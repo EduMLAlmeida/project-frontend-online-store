@@ -1,7 +1,8 @@
 import PropTypes from 'prop-types';
 import React from 'react';
-import { getDetails } from '../services/api';
+import { getDetails, getProductsFromID } from '../services/api';
 import RatingSystem from '../components/RatingSystem';
+import HomeButton from '../components/HomeButton';
 
 class ProductDetails extends React.Component {
   constructor() {
@@ -12,6 +13,7 @@ class ProductDetails extends React.Component {
       thumbnail: '',
       attributes: [],
       price: 0,
+      renderedProduct: 'a',
     };
   }
 
@@ -24,15 +26,34 @@ class ProductDetails extends React.Component {
       thumbnail: result.thumbnail,
       attributes: [...result.attributes],
     }));
+    this.getProducts();
+  }
+
+  getProducts = async () => {
+    const { match: { params: { id } } } = this.props;
+    const product = await getProductsFromID(id);
+    this.setState({
+      renderedProduct: product,
+    });
   }
 
   render() {
-    const { title, thumbnail, price, attributes } = this.state;
+    const { title, thumbnail, price, attributes, renderedProduct } = this.state;
+    const { onAddToCartButtonClick } = this.props;
     return (
       <>
+        <HomeButton />
         <p data-testid="product-detail-name">{ title }</p>
+        <p data-testid="shopping-cart-product-name">{ title }</p>
         <img src={ thumbnail } alt={ title } />
         <p>{ price }</p>
+        <button
+          type="button"
+          data-testid="product-detail-add-to-cart"
+          onClick={ () => onAddToCartButtonClick(renderedProduct) }
+        >
+          Adicionar ao Carrinho
+        </button>
         <p>
           {' '}
           { attributes[attributes] }

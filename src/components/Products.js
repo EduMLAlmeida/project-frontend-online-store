@@ -29,7 +29,7 @@ class Products extends Component {
                         to={ `./productDetails/${id}` }
                         data-testid="product-detail-link"
                       >
-                        <p>{title}</p>
+                        <p data-testid="shopping-cart-product-name">{title}</p>
                         <img src={ thumbnail } alt={ title } />
                         <p>{price}</p>
                       </Link>
