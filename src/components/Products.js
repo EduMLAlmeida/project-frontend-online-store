@@ -4,7 +4,10 @@ import { Link } from 'react-router-dom';
 
 class Products extends Component {
   render() {
-    const { searchResult } = this.props;
+    const {
+      searchResult,
+      onAddToCartButtonClick,
+    } = this.props;
     return (
       searchResult === []
         ? (<p>Nenhum produto foi encontrado</p>)
@@ -12,7 +15,6 @@ class Products extends Component {
           <div>
             {
               (searchResult
-                .filter((_, index) => index > 0)
                 .map((currProduct) => {
                   const {
                     id,
@@ -21,8 +23,8 @@ class Products extends Component {
                     thumbnail,
                   } = currProduct;
                   return (
-                    <div key={ id }>
-                      <span data-testid="product" />
+
+                    <div data-testid="product" key={ id }>
                       <Link
                         to={ `./productDetails/${id}` }
                         data-testid="product-detail-link"
@@ -30,8 +32,14 @@ class Products extends Component {
                         <p>{title}</p>
                         <img src={ thumbnail } alt={ title } />
                         <p>{price}</p>
-
                       </Link>
+                      <button
+                        type="button"
+                        data-testid="product-add-to-cart"
+                        onClick={ () => { onAddToCartButtonClick(currProduct); } }
+                      >
+                        Adicionar ao Carrinho
+                      </button>
                     </div>
                   );
                 }))
@@ -44,6 +52,7 @@ class Products extends Component {
 
 Products.propTypes = {
   searchResult: PropTypes.arrayOf(PropTypes.any).isRequired,
+  onAddToCartButtonClick: PropTypes.func.isRequired,
 };
 
 export default Products;
