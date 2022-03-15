@@ -17,7 +17,6 @@ class ProductDetails extends React.Component {
   async componentDidMount() {
     const { match: { params: { id } } } = this.props;
     const result = await getDetails(id);
-    console.log(result);
     this.setState(() => ({
       title: result.title,
       price: result.price,
@@ -28,7 +27,6 @@ class ProductDetails extends React.Component {
 
   render() {
     const { title, thumbnail, price, attributes } = this.state;
-    console.log(attributes);
     return (
       <>
         <p data-testid="product-detail-name">{ title }</p>
