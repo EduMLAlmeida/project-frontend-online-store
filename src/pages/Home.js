@@ -15,10 +15,12 @@ export default class Home extends Component {
       categories,
       onCategoryClick,
       onAddToCartButtonClick,
+      numberOfProducts,
     } = this.props;
     return (
       <>
         <CartButton />
+        <span data-testid="shopping-cart-product-quantity">{numberOfProducts}</span>
         <h2 data-testid="home-initial-message">
           Digite algum termo de pesquisa ou escolha uma categoria.
         </h2>
@@ -48,4 +50,5 @@ Home.propTypes = {
   categories: PropTypes.arrayOf(PropTypes.any).isRequired,
   onCategoryClick: PropTypes.func.isRequired,
   onAddToCartButtonClick: PropTypes.func.isRequired,
+  numberOfProducts: PropTypes.number.isRequired,
 };

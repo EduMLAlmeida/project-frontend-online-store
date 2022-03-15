@@ -18,6 +18,7 @@ export default class Content extends Component {
       searchResult: [],
       categories: [],
       currentCategory: '',
+      numberOfProducts: 0,
     };
   }
 
@@ -27,15 +28,24 @@ export default class Content extends Component {
   }
 
   onAddToCartButtonClick = (cartProduct) => {
-    const { cartItems } = this.state;
+    const { cartItems, numberOfProducts } = this.state;
     const cartString = JSON.stringify(cartItems);
+    let numberOfAllproducts = numberOfProducts;
     if (!cartString.includes(cartProduct.id)) {
       cartItems.push({ product: cartProduct, qtt: 1 });
+      numberOfAllproducts += 1;
+      this.setState({
+        numberOfProducts: numberOfAllproducts,
+      });
     } else if (cartString.includes(cartProduct.id)) {
       cartItems.find((item) => {
         const itemString = JSON.stringify(item);
         if (itemString.includes(cartProduct.id)) {
           item.qtt += 1;
+          numberOfAllproducts += 1;
+          this.setState({
+            numberOfProducts: numberOfAllproducts,
+          });
         }
         return null;
       });
@@ -89,6 +99,7 @@ export default class Content extends Component {
       searchInput,
       searchResult,
       categories,
+      numberOfProducts,
     } = this.state;
     return (
 
@@ -112,11 +123,15 @@ export default class Content extends Component {
                 categories={ categories }
                 onCategoryClick={ this.onCategoryClick }
                 onAddToCartButtonClick={ this.onAddToCartButtonClick }
+                numberOfProducts={ numberOfProducts }
               />) }
           />
           <Route
             path="/productDetails/:id"
-            component={ ProductDetails }
+            render={ (props) => (<ProductDetails
+              { ...props }
+              onAddToCartButtonClick={ this.onAddToCartButtonClick }
+            />) }
           />
         </Switch>
       </BrowserRouter>
